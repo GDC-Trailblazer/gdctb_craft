@@ -1,0 +1,129 @@
+"""
+A module for all things calibration.
+"""
+
+import random
+from pathlib import Path
+
+from astropy.time import Time
+
+from gdctb_craft import log
+
+__all__ = [
+    "calibrate_file",
+    "get_calibration_file",
+    "process_file",
+    "read_calibration_file",
+]
+
+
+def process_file(data_filename: Path) -> list[Path | None]:
+    """
+    This is the entry point for the pipeline processing.
+    It runs all of the various processing steps required.
+
+    Parameters
+    ----------
+    data_filename: Path
+        Fully specificied filename of an input file
+
+    Returns
+    -------
+    output_files: List[Union[Path, None]]
+        Fully specificied filenames for the output files.
+
+    Notes
+    -----
+    If you want to have the pipeline mark files as processes, but don't want to return an output file,
+    return a list with None element.
+    If you don't want to mark the file as processed, return an empty list.
+    """
+    log.info(f"Processing file {data_filename}.")
+    output_files = []
+
+    #  calibrated_file = calibrate_file(data_filename)
+    calibrated_file = None
+    output_files.append(calibrated_file)
+    #  data_plot_files = plot_file(data_filename)
+    #  calib_plot_files = plot_file(calibrated_file)
+
+    # add other tasks below
+    return output_files
+
+
+def calibrate_file(data_filename: Path, output_level=2) -> Path:
+    """
+    Given an input file, calibrate it and return a new file.
+
+    Parameters
+    ----------
+    data_filename: str
+        Fully specificied filename of the non-calibrated file (data level < 2)
+    output_level: int
+        The requested data level of the output file.
+
+    Returns
+    -------
+    output_filename: str
+        Fully specificied filename of the non-calibrated file (data level < 2)
+
+    Examples
+    --------
+    """
+
+    log.info(f"Despiking removing {random.randint(0, 10)} spikes")
+    log.warning(f"Despiking could not remove {random.randint(1, 5)}")
+
+    calib_file = get_calibration_file(data_filename)
+    if calib_file is None:
+        raise ValueError(f"Calibration file for {data_filename} not found.")
+    else:
+        calib_data = read_calibration_file(calib_file)  # NOQA
+
+    # example log messages
+
+    return None
+
+
+def get_calibration_file(time: Time) -> Path:
+    """
+    Given a time, return the appropriate calibration file.
+
+    Parameters
+    ----------
+    data_filename: str
+        Fully specificied filename of the non-calibrated file (data level < 2)
+    time: ~astropy.time.Time
+
+    Returns
+    -------
+    calib_filename: str
+        Fully specificied filename for the appropriate calibration file.
+
+    Examples
+    --------
+    """
+    return None
+
+
+def read_calibration_file(calib_filename: Path):
+    """
+    Given a calibration, return the calibration structure.
+
+    Parameters
+    ----------
+    calib_filename: str
+        Fully specificied filename of the non-calibrated file (data level < 2)
+
+    Returns
+    -------
+    output_filename: str
+        Fully specificied filename of the appropriate calibration file.
+
+    Examples
+    --------
+    """
+
+    # if can't read the file
+
+    return
